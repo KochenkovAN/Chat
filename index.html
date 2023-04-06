@@ -78,14 +78,21 @@
   const days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
   const months = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
   const myDate = new Date();
-  // console.log(rusDate);
-  // console.log(rusTime);
-  
+
+  //объявление переменных
+
   const buttonElement = document.getElementById('add-button');
   const listElement = document.getElementById('list');
   const nameInputElement = document.getElementById('name-input');
   const comentInputElement = document.getElementById('coment-input');
-  
+
+  // Переход на поле комментариев при нажатии на Enter в поле имя
+  nameInputElement.addEventListener('keyup', (key) => {
+    if (key.code === 'Enter') {
+      comentInputElement.focus();
+    };
+  })
+
   buttonElement.addEventListener('click', () => {
 
     const rusDate = myDate.getDate() + " " + months[myDate.getMonth()] + " " + myDate.getFullYear();
