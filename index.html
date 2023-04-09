@@ -10,47 +10,7 @@
   <div class="container">
     <ul class="comments" id="list">
 
-      <!-- Первый коммент -->
-
-      <li class="comment">
-        <div class="comment-header">
-          <div>Глеб Фокин</div>
-          <div>12.02.22 12:18</div>
-        </div>
-        <div class="comment-body">
-          <div class="comment-text">
-            Это будет первый комментарий на этой странице
-          </div>
-        </div>
-        <div class="comment-footer">
-          <div class="likes">
-            <span class="likes-counter">3</span>
-            <button class="like-button"></button>
-          </div>
-        </div>
-      </li>
-
-      <!-- Второй коммент -->
-
-      <li class="comment">
-        <div class="comment-header">
-          <div>Варвара Н.</div>
-          <div>13.02.22 19:22</div>
-        </div>
-        <div class="comment-body">
-          <div class="comment-text">
-            Мне нравится как оформлена эта страница! ❤
-          </div>
-        </div>
-        <div class="comment-footer">
-          <div class="likes">
-            <span class="likes-counter">75</span>
-            <button class="like-button -active-like"></button>
-          </div>
-        </div>
-      </li>
-
-      <!-- Добавляемый коммент -->
+      <!-- Список коментов в JS -->
 
     </ul>
 
@@ -73,66 +33,7 @@
     /* цвет errora */
   }
 </style>
-<script>
-  //время сообщения
-  const days = ["Воскресенье", "Понедельник", "Вторник", "Среда", "Четверг", "Пятница", "Суббота"];
-  const months = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
-  const myDate = new Date();
 
-  //объявление переменных
-
-  const buttonElement = document.getElementById('add-button');
-  const listElement = document.getElementById('list');
-  const nameInputElement = document.getElementById('name-input');
-  const comentInputElement = document.getElementById('coment-input');
-
-  // Переход на поле комментариев при нажатии на Enter в поле имя
-  nameInputElement.addEventListener('keyup', (key) => {
-    if (key.code === 'Enter') {
-      comentInputElement.focus();
-    };
-  })
-
-  buttonElement.addEventListener('click', () => {
-
-    const rusDate = myDate.getDate() + " " + months[myDate.getMonth()] + " " + myDate.getFullYear();
-    const rusTime = myDate.getHours() + ":" + myDate.getMinutes() + ":" + myDate.getSeconds();
-
-    nameInputElement.classList.remove('error') //снять подсветку поля (error)
-    if (nameInputElement.value === "") {
-      nameInputElement.classList.add('error') // подсветить поле ввода имени
-      return;
-    }
-
-    comentInputElement.classList.remove('error') //снять подсветку поля (error)
-    if (comentInputElement.value === "") {
-      comentInputElement.classList.add('error') // подсветить поле ввода коммента
-      return;
-    }
-
-    const oldListElement = listElement.innerHTML;
-    listElement.innerHTML = oldListElement + //старый список + то что хотим добавить
-      `<li class="comment">
-          <div class="comment-header">
-            <div>${nameInputElement.value}</div>
-            <div>${rusDate} ${rusTime}</div>
-          </div>
-          <div class="comment-body">
-            <div class="comment-text">
-              ${comentInputElement.value}
-            </div>
-          </div>
-          <div class="comment-footer">
-            <div class="likes">
-              <span class="likes-counter"></span>
-              <button class="like-button"></button>
-            </div>
-          </div>
-        </li>`
-    nameInputElement.value = ""; //обнулить поле ввода имени
-    comentInputElement.value = ""; //обнулить поле ввода коммента
-  });
-
-</script>
+<script src="./skript.js"></script>
 
 </html>
