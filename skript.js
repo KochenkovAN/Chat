@@ -48,11 +48,11 @@
     const commentHTML = comments.map((comments, index) => {
         return `<li class="comment">
         <div class="comment-header">
-          <div>${comments.name}</div>
+          <div class="comment-name" data-name ='${comments.name}'>${comments.name}</div>
           <div>${comments.date}</div>
         </div>
         <div class="comment-body">
-          <div class="comment-text">
+          <div class="comment-text" data-text ='${comments.text}'>
             ${comments.text}
           </div>
         </div>
@@ -66,7 +66,34 @@
       </li>`}).join('');
 
     listElement.innerHTML = commentHTML;
+
+    //ответ на комментарий
+    
+    const commentName = document.querySelectorAll('.comment-name');
+
+    for(const el of commentName) {
+      el.addEventListener('click', () => {
+        const name = el.dataset.name;
+        console.log(name);
+        comentInputElement.value += `${name}`;
+        // переносим пользователя в поле ввода текста
+        comentInputElement.focus();
+        })
+    }
+
+    const commentText = document.querySelectorAll('.comment-text');
+
+    for(const el of commentText) {
+      el.addEventListener('click', () => {
+        const text = el.dataset.text;
+        console.log(text);
+        comentInputElement.value += `[BEGIN_QUOTE] ${text} [END_QUOTE]`;
+        // переносим пользователя в поле ввода текста
+        comentInputElement.focus();
+        })
+    }
   }
+  
   renderComment();
 
   //кнопки Like
@@ -88,10 +115,12 @@
           comments[index].likes -= 1
         }
         renderComment();
-      })
+        initLikesButton();
+      });
     }
-  }
+  };
   initLikesButton();
+  
 
   // Переход на поле комментариев при нажатии на Enter в поле имя
   nameInputElement.addEventListener('keyup', (key) => {
@@ -111,7 +140,7 @@
             comments.splice(index, 1);
             renderComment();
         })
-    }
+      }
   }
   initDeleteButtons();
 
@@ -136,8 +165,14 @@
     //добавление нового комментария путем добавления данных в массив
 
     comments.push( {
-      name: nameInputElement.value,
-      text: comentInputElement.value,
+      name: nameInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;"),
+      text: comentInputElement.value
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;"),
       date: rusDate + " " + rusTime,
       likes: 3,
     } );
@@ -149,3 +184,4 @@
     initDeleteButtons();//инициировать функцию после того как пользователь написал коментарий
     initLikesButton();
   });
+
